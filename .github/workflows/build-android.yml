@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
@@ -61,7 +61,8 @@ jobs:
 
       - name: Upload APK as artifact
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: actions/upload-artifact@v1
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+          if: ${{ runner.os == 'ubuntu-latest' }}
+            uses: actions/upload-artifact@v1
+            with:
+              name: app-release.apk
+              path: android/app/build/outputs/apk/release/
