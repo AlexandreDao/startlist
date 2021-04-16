@@ -10,6 +10,8 @@
     "android": "react-native run-android --no-jetifier",
     "ios": "react-native run-ios --no-jetifier",
     "start": "react-native start",
+    "build-android-release": "cd android && ./gradlew assembleRelease --no-daemon",
+    "build-android-ci": "cd android && ./gradlew --no-daemon -q --warning-mode=none assembleRelease",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },

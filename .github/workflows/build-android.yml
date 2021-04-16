@@ -1,0 +1,63 @@
+name: Build Android APK in release mode
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest #[ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Cache yarn
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-yarn
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Installation
+        run: yarn install
+
+      - name: Cache Gradle
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-gradle
+        with:
+          path: ~/android/.gradle
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Give right to exec gradlew
+        run: cd android && chmod +x ./gradlew
+
+      - name: Build release
+        run: yarn run build-android-ci
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/
