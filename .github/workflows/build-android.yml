@@ -1,7 +1,7 @@
 name: Build Android APK in release mode
 
 on:
-  push
+  push:
     branches:
       - main
       - develop
