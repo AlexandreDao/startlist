@@ -50,6 +50,9 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: Give right to exec gradlew
+        run: cd android && chmod +x ./gradlew
+
       - name: Build release
         run: yarn run build-android-ci
 
