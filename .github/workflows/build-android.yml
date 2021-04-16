@@ -14,7 +14,7 @@ jobs:
   build:
     runs-on: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - name: Setup
+      - name: Setup repo
         uses: actions/checkout@v2
 
       - name: Cache yarn
@@ -29,10 +29,12 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Installation
+      - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      - name: Installation
         run: yarn install
 
       - name: Cache Gradle
