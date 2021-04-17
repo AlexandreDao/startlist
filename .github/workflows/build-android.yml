@@ -13,7 +13,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest #[ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - name: Setup repo
         uses: actions/checkout@v2
@@ -61,3 +64,4 @@ jobs:
         with:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/
+        if: ${{ github.ref == 'refs/heads/main' && runner.os == 'ubuntu-latest'}}
