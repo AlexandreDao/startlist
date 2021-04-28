@@ -1,7 +1,9 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 
-const ManageScreen = () => {
+type Props = Record<string, never>;
+
+const ManageScreen: React.FC<Props> = () => {
   return <SafeAreaView></SafeAreaView>;
 };
 

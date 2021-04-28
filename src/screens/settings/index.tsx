@@ -1,7 +1,9 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 
-const SettingsScreen = () => {
+type Props = Record<string, never>;
+
+const SettingsScreen: React.FC<Props> = () => {
   return <SafeAreaView></SafeAreaView>;
 };
 

@@ -1,50 +1,36 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {HomeScreen, ManageScreen, SettingsScreen} from '@screens';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FeatherIcons from 'react-native-vector-icons/Feather';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
+import {CreationScreen} from '@screens';
+import {RouteStackParamList} from '@types';
+import {HeaderCloseButton} from '@components';
+import BottomTabs from './BottomTab';
 
-const BottomTab = createBottomTabNavigator();
+type Props = Record<string, never>;
 
-const MyBottomTabs = () => {
+const Stack = createStackNavigator<RouteStackParamList>();
+
+const MyBottomTabs: React.FC<Props> = () => {
   return (
-    <BottomTab.Navigator>
-      <BottomTab.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons
-              name="playlist-play"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
+        options={{headerShown: false}}
+        component={BottomTabs}
       />
-      <BottomTab.Screen
-        name="Manage"
-        component={ManageScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons
-              name="playlist-edit"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
+      <Stack.Screen
+        name="Creation"
+        options={({navigation}): StackNavigationOptions => ({
+          title: 'Create',
+          headerTitleAlign: 'left',
+          headerLeft: () => <></>,
+          headerRight: () => <HeaderCloseButton onPress={navigation.goBack} />,
+        })}
+        component={CreationScreen}
       />
-      <BottomTab.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <FeatherIcons name="settings" color={color} size={size} />
-          ),
-        }}
-      />
-    </BottomTab.Navigator>
+    </Stack.Navigator>
   );
 };
 

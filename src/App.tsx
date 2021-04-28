@@ -3,7 +3,7 @@ import {SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import MyBottomTabs from 'Route';
 
-type Props = {};
+type Props = Record<string, never>;
 
 const App: React.FC<Props> = () => {
   return (
