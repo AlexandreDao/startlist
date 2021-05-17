@@ -24,7 +24,7 @@ const MyBottomTabs: React.FC<Props> = () => {
         name="Creation"
         options={({navigation}): StackNavigationOptions => ({
           title: 'Create',
-          headerTitleAlign: 'left',
+          headerTitleAlign: 'center',
           headerLeft: () => <></>,
           headerRight: () => <HeaderCloseButton onPress={navigation.goBack} />,
         })}
