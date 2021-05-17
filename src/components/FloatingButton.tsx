@@ -43,7 +43,6 @@ const FloatingButton: React.FC<Props> = ({
         backgroundColor: backgroundColor || DEFAULT_COLOR,
         width: size,
         height: size,
-        alignSelf: 'flex-end',
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: 'black',
